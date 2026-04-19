@@ -1,3 +1,6 @@
+
+// Register user
+
 POST http://localhost:8080/api/auth/register
 Content-Type: application/json
 
@@ -9,6 +12,8 @@ Content-Type: application/json
 
 ###
 
+// Login User
+
 POST http://localhost:8080/api/auth/login
 Content-Type: application/json
 
@@ -16,3 +21,50 @@ Content-Type: application/json
 "username": "testuser",
 "password": "12345"
 }
+
+###
+
+// Create Task
+
+POST http://localhost:8080/api/tasks
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0dXNlciIsImlhdCI6MTc3NjYwMjIzMiwiZXhwIjoxNzc2Njg4NjMyfQ.OthsU4X2dyBieLq8D1XWsiSkw-Vg4KCpo85myX_pm7o
+
+{
+  "title": "Buy Milk",
+  "description": ""
+}
+
+###
+
+// Get All Tasks
+
+GET http://localhost:8080/api/tasks
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0dXNlciIsImlhdCI6MTc3NjYwMjIzMiwiZXhwIjoxNzc2Njg4NjMyfQ.OthsU4X2dyBieLq8D1XWsiSkw-Vg4KCpo85myX_pm7o
+
+###
+
+//Update Task
+
+PUT http://localhost:8080/api/tasks/4
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0dXNlciIsImlhdCI6MTc3NjYwMjIzMiwiZXhwIjoxNzc2Njg4NjMyfQ.OthsU4X2dyBieLq8D1XWsiSkw-Vg4KCpo85myX_pm7o
+
+{
+  "title": "Updated Buy Milk",
+  "description": "Buy 2 milks"
+}
+
+###
+
+// Delete Task
+
+DELETE http://localhost:8080/api/tasks/6
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0dXNlciIsImlhdCI6MTc3NjYwMjIzMiwiZXhwIjoxNzc2Njg4NjMyfQ.OthsU4X2dyBieLq8D1XWsiSkw-Vg4KCpo85myX_pm7o
+
+###
+
+// Complete Task
+
+PATCH http://localhost:8080/api/tasks/6/complete
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0dXNlciIsImlhdCI6MTc3NjYwMjIzMiwiZXhwIjoxNzc2Njg4NjMyfQ.OthsU4X2dyBieLq8D1XWsiSkw-Vg4KCpo85myX_pm7o
