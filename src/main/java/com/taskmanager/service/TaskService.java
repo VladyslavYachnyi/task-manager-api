@@ -5,6 +5,8 @@ import com.taskmanager.entity.Task;
 import com.taskmanager.entity.User;
 import com.taskmanager.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +16,7 @@ import java.util.List;
 public class TaskService {
     private final TaskRepository taskRepository;
 
+    @CacheEvict(value = "userTasks", key = "#currentUser.id")
     public Task createTask(TaskRequest request, User currentUser) {
         Task task = new Task();
         task.setTitle(request.getTitle());
@@ -23,10 +26,12 @@ public class TaskService {
         return taskRepository.save(task);
     }
 
+    @Cacheable(value = "userTasks", key = "#currentUser.id")
     public List<Task> getUserTasks(User currentUser) {
         return taskRepository.findByUserId(currentUser.getId());
     }
 
+    @CacheEvict(value = "userTasks", key = "#currentUser.id")
     public Task updateTask(Long taskId, TaskRequest request, User currentUser) {
         Task task = taskRepository.findById(taskId)
                 .orElseThrow(() -> new IllegalArgumentException("Task is not found"));
@@ -40,6 +45,7 @@ public class TaskService {
         return taskRepository.save(task);
     }
 
+    @CacheEvict(value = "userTasks", key = "#currentUser.id")
     public void deleteTask(Long taskId, User currentUser) {
         Task task = taskRepository.findById(taskId)
                 .orElseThrow(() -> new IllegalArgumentException("Task is not found"));
@@ -51,6 +57,7 @@ public class TaskService {
         taskRepository.delete(task);
     }
 
+    @CacheEvict(value = "userTasks", key = "#currentUser.id")
     public Task toggleTaskCompletion(Long taskId, User currentUser) {
         Task task = taskRepository.findById(taskId)
                 .orElseThrow(() -> new IllegalArgumentException("Task is not found"));
